@@ -22,19 +22,22 @@ class SimplePiece {
         this.y = 0;
         this.size = 40;
         this.color = 'blue';
+        this.fixed = false
 
         window.addEventListener("keydown", (e) => {
-            switch (e.key) {
-                case "ArrowLeft":
-                    if (this.x > 0) {
-                        this.x -= 40
-                    }
-                    break;
-                case "ArrowRight":
-                    if (this.x < 360) {
-                        this.x += 40;
-                    }
-                    break;
+            if (this.y < 760) {
+                switch (e.key) {
+                    case "ArrowLeft":
+                        if (this.x > 0) {
+                            this.x -= 40
+                        }
+                        break;
+                    case "ArrowRight":
+                        if (this.x < 360) {
+                            this.x += 40;
+                        }
+                        break;
+                }
             }
         });
     }
@@ -46,21 +49,32 @@ class SimplePiece {
     }
 
     update() {
-        this.y += 40
+        if (this.y < 760) {
+            this.y += 40
+        } else { this.fixed = true }
     }
 }
 
-delay = 0
-level = 100
-x = new SimplePiece()
+delay = 0;
+level = 10;
+currentPiece = new SimplePiece();
+pieces = [];
 
 function loop() {
-
-    x.draw()
+    if (currentPiece.fixed) {
+        x = currentPiece;
+        pieces.push(x);
+        currentPiece = new SimplePiece()
+    }
+    ctx.fillStyle = 'rgba(0, 0, 0, 0.25)';
+    ctx.fillRect(0, 0, 400, 800);
+    pieces.forEach(p => {
+        p.draw()
+    });
+    currentPiece.draw()
     if (delay === level) {
-        if (x.y <= 800) {
-            x.update()
-        }
+
+        currentPiece.update()
         delay = 0
     } else {
         delay++
