@@ -8,7 +8,32 @@ ctx.canvas.height = ROWS * BLOCK_SIZE;
 // Scale blocks
 ctx.scale(BLOCK_SIZE, BLOCK_SIZE);
 
+// Set loop time depending on level
+level = 98;
+time = 1;
+
 function play() {
   board = new Board(ctx);
-  console.table(board.grid);
+  board.newPiece();
+  loop();
+}
+function loop() {
+  // Beginning of loop
+  if (time === 1) {
+    board.drawBoard();
+  }
+  // End of loop
+  if (time + level === 100) {
+    board.movePiece();
+    if (board.gameOver()) {
+      window.alert("GAME OVER");
+      return;
+    }
+
+    time = 1;
+  } else {
+    time++;
+  }
+
+  requestAnimationFrame(loop);
 }
