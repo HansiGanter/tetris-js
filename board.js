@@ -1,3 +1,6 @@
+// const sequence = [5, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6];
+// let pieceIndex = 0;
+
 class Board {
   currentPiece;
   constructor(ctx) {
@@ -48,6 +51,8 @@ class Board {
   }
 
   newPiece() {
+    // this.currentPiece = new Piece(sequence[pieceIndex]);
+    // pieceIndex++;
     this.currentPiece = new Piece();
   }
 
@@ -109,7 +114,6 @@ class Board {
           ) {
             return true;
           }
-          break;
         }
       }
     }

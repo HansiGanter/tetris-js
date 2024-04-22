@@ -1,4 +1,7 @@
-// TODO: Fix collision bug when turning Piece
+// TODO:
+// - Fix collision bug when turning Piece
+// - Add Levels
+// - Add point system
 
 const canvas = document.getElementById("board");
 const ctx = canvas.getContext("2d");
