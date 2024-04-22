@@ -22,7 +22,7 @@ class Board {
             // Do something for "space" key press.
             break;
           case "ArrowUp":
-            // Do something for "up arrow" key press.
+            this.currentPiece.turn();
             break;
           case "ArrowLeft":
             if (!this.checkCollisionLeft()) {
@@ -48,10 +48,10 @@ class Board {
   }
 
   newPiece() {
-    this.currentPiece = { y: 0, x: 4 };
+    this.currentPiece = new Piece();
   }
 
-  drawBoard(gameover = false) {
+  drawBoard() {
     const { width, height } = ctx.canvas;
     ctx.clearRect(0, 0, width, height);
     ctx.fillStyle = "blue";
@@ -62,25 +62,32 @@ class Board {
         }
       }
     }
-    ctx.fillStyle = "green";
-    ctx.fillRect(this.currentPiece.x, this.currentPiece.y, 1, 1);
+    this.currentPiece.draw(this.ctx);
   }
 
   movePiece() {
     if (this.checkCollisionDown()) {
-      this.grid[this.currentPiece.y][this.currentPiece.x] = 1;
-      if (this.grid[this.currentPiece.y].every((p) => p === 1)) {
-        this.removeRow(this.currentPiece.y);
+      for (let row = 0; row < this.currentPiece.pieceGrid.length; row++) {
+        for (let col = 0; col < this.currentPiece.pieceGrid[0].length; col++) {
+          if (this.currentPiece.pieceGrid[row][col] === 2) {
+            this.grid[this.currentPiece.y + row][this.currentPiece.x + col] = 1;
+          }
+        }
       }
+      this.removeRow();
       this.newPiece();
     } else {
       this.currentPiece.y++;
     }
   }
 
-  removeRow(y) {
-    this.grid.splice(y, 1);
-    this.grid.unshift(Array(COLS).fill(0));
+  removeRow() {
+    for (let row = 0; row < this.grid.length; row++) {
+      if (this.grid[row].every((p) => p === 1)) {
+        this.grid.splice(row, 1);
+        this.grid.unshift(Array(COLS).fill(0));
+      }
+    }
   }
 
   gameOver() {
@@ -90,22 +97,65 @@ class Board {
   }
 
   checkCollisionDown() {
-    return (
-      this.grid[this.currentPiece.y + 1]?.[this.currentPiece.x] === 1 ||
-      this.currentPiece.y + 1 >= this.grid.length
-    );
+    // for each col of Piece get "lowest" cell and check collition with bottom or fixed piece
+    for (let row = this.currentPiece.pieceGrid.length - 1; row >= 0; row--) {
+      for (let col = 0; col < this.currentPiece.pieceGrid[0].length; col++) {
+        if (this.currentPiece.pieceGrid[row][col] === 2) {
+          if (
+            this.grid[this.currentPiece.y + row + 1]?.[
+              this.currentPiece.x + col
+            ] === 1 ||
+            this.currentPiece.y + row + 1 > ROWS - 1
+          ) {
+            return true;
+          }
+          break;
+        }
+      }
+    }
+    return false;
   }
   checkCollisionLeft() {
-    return (
-      this.grid[this.currentPiece.y]?.[this.currentPiece.x - 1] === 1 ||
-      this.currentPiece.x - 1 < 0
-    );
+    // for each row of Piece get "leftest" cell and check collition with border or fixed piece
+    for (let row = 0; row < this.currentPiece.pieceGrid.length; row++) {
+      for (let col = 0; col < this.currentPiece.pieceGrid[0].length; col++) {
+        if (this.currentPiece.pieceGrid[row][col] === 2) {
+          if (
+            this.grid[this.currentPiece.y + row]?.[
+              this.currentPiece.x + col - 1
+            ] === 1 ||
+            this.currentPiece.x + col - 1 < 0
+          ) {
+            return true;
+          }
+          break;
+        }
+      }
+    }
+    return false;
   }
   checkCollisionRight() {
-    return (
-      this.grid[this.currentPiece.y]?.[this.currentPiece.x + 1] === 1 ||
-      this.currentPiece.x + 1 > this.grid[0].length - 1
-    );
+    // for each row of Piece get "rightest" cell and check collition with border or fixed piece
+    for (let row = 0; row < this.currentPiece.pieceGrid.length; row++) {
+      for (
+        let col = this.currentPiece.pieceGrid[0].length - 1;
+        col >= 0;
+        col--
+      ) {
+        if (this.currentPiece.pieceGrid[row][col] === 2) {
+          if (
+            this.grid[this.currentPiece.y + row]?.[
+              this.currentPiece.x + col + 1
+            ] === 1 ||
+            this.currentPiece.x + col + 1 > COLS - 1
+          ) {
+            return true;
+          }
+          break;
+        }
+      }
+    }
+    return false;
   }
 
   getEmptyBoard() {
