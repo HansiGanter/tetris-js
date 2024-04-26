@@ -1,12 +1,12 @@
 // TODO:
 // - Fix collision bug when turning Piece
-// - Add Levels
+// ✅ Add Levels
 // - Add point system
 // ✅ Create next piece preview
 // - Let rotate for one more cycle before fixing piece
 // - Add solved lines animation
 // - Add colors to pieces
-// - KeyDown Feature
+// ✅ KeyDown Feature
 
 const canvas = document.getElementById("board");
 const ctx = canvas.getContext("2d");
@@ -26,8 +26,14 @@ ctx.scale(BLOCK_SIZE, BLOCK_SIZE);
 ctxNextPiece.scale(BLOCK_SIZE, BLOCK_SIZE);
 
 // Set loop time depending on level
-level = 80;
 time = 1;
+lines = 0;
+level = 0;
+score = 0;
+
+const scoreSpan = document.getElementById("score");
+const linesSpan = document.getElementById("lines");
+const levelSpan = document.getElementById("level");
 
 function play() {
   board = new Board(ctx, ctxNextPiece);
@@ -40,7 +46,7 @@ function loop() {
     board.drawBoard();
   }
   // End of loop
-  if (time + level === 100) {
+  if (time + level * 10 >= 100) {
     board.movePiece();
     if (board.gameOver()) {
       window.alert("GAME OVER");

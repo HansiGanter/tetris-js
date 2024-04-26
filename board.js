@@ -20,12 +20,24 @@ class Board {
         switch (event.key) {
           case "ArrowDown":
             // Do something for "down arrow" key press.
+            if (!this.checkCollisionDown()) {
+              this.currentPiece.y++;
+              this.drawBoard();
+            }
             break;
           case "Enter":
             // Do something for "enter" or "return" key press.
+            while (!this.checkCollisionDown()) {
+              this.currentPiece.y++;
+            }
+            time = 100;
             break;
           case " ":
             // Do something for "space" key press.
+            while (!this.checkCollisionDown()) {
+              this.currentPiece.y++;
+            }
+            time = 100;
             break;
           case "ArrowUp":
             this.currentPiece.turn();
@@ -96,12 +108,22 @@ class Board {
   }
 
   removeRow() {
+    let lineSequence = 0;
     for (let row = 0; row < this.grid.length; row++) {
       if (this.grid[row].every((p) => p === 1)) {
         this.grid.splice(row, 1);
         this.grid.unshift(Array(COLS).fill(0));
+        lineSequence++;
       }
     }
+    lines += lineSequence;
+    if (lines / (level + 1) >= 10 && level < 9) {
+      level++;
+    }
+
+    scoreSpan.textContent = score;
+    linesSpan.textContent = lines;
+    levelSpan.textContent = level;
   }
 
   gameOver() {
