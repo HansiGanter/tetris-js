@@ -84,8 +84,20 @@ class Piece {
     ctx.fillStyle = color || "green";
     this.pieceGrid.forEach((row, y) => {
       row.forEach((cell, x) => {
-        if (this.pieceGrid[y][x] === 2)
+        if (this.pieceGrid[y][x] === 2) {
           ctx.fillRect(x + this.x, y + this.y, 1, 1);
+        }
+      });
+    });
+  }
+
+  drawNextPiece(ctx, color) {
+    ctx.fillStyle = color || "green";
+    this.pieceGrid.forEach((row, y) => {
+      row.forEach((cell, x) => {
+        if (this.pieceGrid[y][x] === 2) {
+          ctx.fillRect(x + 1, y + 1, 1, 1);
+        }
       });
     });
   }

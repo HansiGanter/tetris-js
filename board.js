@@ -3,9 +3,12 @@
 
 class Board {
   currentPiece;
-  constructor(ctx) {
+  nextPiece;
+  constructor(ctx, ctxNextPiece) {
     this.ctx = ctx;
+    this.ctxNextPiece = ctxNextPiece;
     this.grid = this.getEmptyBoard();
+    this.nextPiece = new Piece();
 
     window.addEventListener(
       "keydown",
@@ -53,7 +56,13 @@ class Board {
   newPiece() {
     // this.currentPiece = new Piece(sequence[pieceIndex]);
     // pieceIndex++;
-    this.currentPiece = new Piece();
+    this.currentPiece = this.nextPiece;
+    this.nextPiece = new Piece();
+
+    // Draw nextPiece
+    const { width, height } = ctxNextPiece.canvas;
+    this.ctxNextPiece.clearRect(0, 0, width, height);
+    this.nextPiece.drawNextPiece(this.ctxNextPiece);
   }
 
   drawBoard() {
