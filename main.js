@@ -2,6 +2,10 @@
 // - Fix collision bug when turning Piece
 // - Add Levels
 // - Add point system
+// - Create next piece preview
+// - Let rotate for one more cycle before fixing piece
+// - Add solved lines animation
+// - Add colors to pieces
 
 const canvas = document.getElementById("board");
 const ctx = canvas.getContext("2d");
