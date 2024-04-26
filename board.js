@@ -117,6 +117,7 @@ class Board {
       }
     }
     lines += lineSequence;
+    if (lineSequence > 0) updateScore(lineSequence);
     if (lines / (level + 1) >= 10 && level < 9) {
       level++;
     }

@@ -1,12 +1,13 @@
 // TODO:
 // - Fix collision bug when turning Piece
 // ✅ Add Levels
-// - Add point system
+// ✅ Add point system
 // ✅ Create next piece preview
 // - Let rotate for one more cycle before fixing piece
 // - Add solved lines animation
 // - Add colors to pieces
 // ✅ KeyDown Feature
+// Change background color depending on level
 
 const canvas = document.getElementById("board");
 const ctx = canvas.getContext("2d");
@@ -30,6 +31,11 @@ time = 1;
 lines = 0;
 level = 0;
 score = 0;
+scoreTable = [40, 100, 300, 1200];
+
+function updateScore(lineSequence) {
+  score += scoreTable[lineSequence - 1] * (level + 1);
+}
 
 const scoreSpan = document.getElementById("score");
 const linesSpan = document.getElementById("lines");
