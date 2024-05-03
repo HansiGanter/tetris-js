@@ -4,6 +4,7 @@
 class Board {
   currentPiece;
   nextPiece;
+  lastChance = true;
   constructor(ctx, ctxNextPiece) {
     this.ctx = ctx;
     this.ctxNextPiece = ctxNextPiece;
@@ -31,6 +32,7 @@ class Board {
               this.currentPiece.y++;
             }
             time = 100;
+            this.lastChance = false;
             break;
           case " ":
             // Do something for "space" key press.
@@ -38,6 +40,7 @@ class Board {
               this.currentPiece.y++;
             }
             time = 100;
+            this.lastChance = false;
             break;
           case "ArrowUp":
             this.currentPiece.turn();
@@ -95,16 +98,26 @@ class Board {
 
   movePiece() {
     if (this.checkCollisionDown()) {
-      for (let row = 0; row < this.currentPiece.pieceGrid.length; row++) {
-        for (let col = 0; col < this.currentPiece.pieceGrid[0].length; col++) {
-          if (this.currentPiece.pieceGrid[row][col] === 2) {
-            this.grid[this.currentPiece.y + row][this.currentPiece.x + col] =
-              this.currentPiece.type;
+      if (this.lastChance) {
+        time = 1;
+        this.lastChance = false;
+      } else {
+        for (let row = 0; row < this.currentPiece.pieceGrid.length; row++) {
+          for (
+            let col = 0;
+            col < this.currentPiece.pieceGrid[0].length;
+            col++
+          ) {
+            if (this.currentPiece.pieceGrid[row][col] === 2) {
+              this.grid[this.currentPiece.y + row][this.currentPiece.x + col] =
+                this.currentPiece.type;
+            }
           }
         }
+        this.removeRow();
+        this.newPiece();
+        this.lastChance = true;
       }
-      this.removeRow();
-      this.newPiece();
     } else {
       this.currentPiece.y++;
     }

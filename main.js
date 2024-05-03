@@ -3,11 +3,11 @@
 // ✅ Add Levels
 // ✅ Add point system
 // ✅ Create next piece preview
-// - Let rotate for one more cycle before fixing piece
+// ✅ Let rotate for one more cycle before fixing piece
 // - Add solved lines animation
-// - Add colors to pieces
+// ✅ Add colors to pieces
 // ✅ KeyDown Feature
-// - Change background color depending on level
+// ✅ Change background color depending on level
 // - Store the highscore
 
 const canvas = document.getElementById("board");
@@ -28,11 +28,11 @@ ctx.scale(BLOCK_SIZE, BLOCK_SIZE);
 ctxNextPiece.scale(BLOCK_SIZE, BLOCK_SIZE);
 
 // Set loop time depending on level
-time = 1;
-lines = 0;
-level = 0;
-score = 0;
-scoreTable = [40, 100, 300, 1200];
+let time = 1;
+let lines = 0;
+let level = 0;
+let score = 0;
+let scoreTable = [40, 100, 300, 1200];
 
 function updateScore(lineSequence) {
   score += scoreTable[lineSequence - 1] * (level + 1);
