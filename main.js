@@ -7,7 +7,8 @@
 // - Add solved lines animation
 // - Add colors to pieces
 // ✅ KeyDown Feature
-// Change background color depending on level
+// - Change background color depending on level
+// - Store the highscore
 
 const canvas = document.getElementById("board");
 const ctx = canvas.getContext("2d");

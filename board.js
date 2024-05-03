@@ -79,11 +79,13 @@ class Board {
 
   drawBoard() {
     const { width, height } = ctx.canvas;
-    ctx.clearRect(0, 0, width, height);
-    ctx.fillStyle = "blue";
+    this.ctx.clearRect(0, 0, width, height);
+    this.ctx.fillStyle = backgroundcolors[level];
+    this.ctx.fillRect(0, 0, width, height);
     for (let y = 0; y < this.grid.length; y++) {
       for (let x = 0; x < this.grid[0].length; x++) {
-        if (this.grid[y][x] === 1) {
+        if (this.grid[y][x] !== 0) {
+          ctx.fillStyle = colors[this.grid[y][x]];
           ctx.fillRect(x, y, 1, 1);
         }
       }
@@ -96,7 +98,8 @@ class Board {
       for (let row = 0; row < this.currentPiece.pieceGrid.length; row++) {
         for (let col = 0; col < this.currentPiece.pieceGrid[0].length; col++) {
           if (this.currentPiece.pieceGrid[row][col] === 2) {
-            this.grid[this.currentPiece.y + row][this.currentPiece.x + col] = 1;
+            this.grid[this.currentPiece.y + row][this.currentPiece.x + col] =
+              this.currentPiece.type;
           }
         }
       }
@@ -110,7 +113,7 @@ class Board {
   removeRow() {
     let lineSequence = 0;
     for (let row = 0; row < this.grid.length; row++) {
-      if (this.grid[row].every((p) => p === 1)) {
+      if (this.grid[row].every((p) => p !== 0)) {
         this.grid.splice(row, 1);
         this.grid.unshift(Array(COLS).fill(0));
         lineSequence++;
@@ -128,7 +131,7 @@ class Board {
   }
 
   gameOver() {
-    if (this.grid[0].some((p) => p === 1)) {
+    if (this.grid[0].some((p) => p !== 0)) {
       return true;
     }
   }
@@ -141,7 +144,7 @@ class Board {
           if (
             this.grid[this.currentPiece.y + row + 1]?.[
               this.currentPiece.x + col
-            ] === 1 ||
+            ] !== 0 ||
             this.currentPiece.y + row + 1 > ROWS - 1
           ) {
             return true;
@@ -159,7 +162,7 @@ class Board {
           if (
             this.grid[this.currentPiece.y + row]?.[
               this.currentPiece.x + col - 1
-            ] === 1 ||
+            ] !== 0 ||
             this.currentPiece.x + col - 1 < 0
           ) {
             return true;
@@ -182,7 +185,7 @@ class Board {
           if (
             this.grid[this.currentPiece.y + row]?.[
               this.currentPiece.x + col + 1
-            ] === 1 ||
+            ] !== 0 ||
             this.currentPiece.x + col + 1 > COLS - 1
           ) {
             return true;
