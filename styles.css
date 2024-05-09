@@ -5,7 +5,13 @@
 
 .grid {
   display: grid;
-  grid-template-columns: 320px 200px;
+  justify-content: center;
+  align-content: center;
+
+  width: 100vw;
+  height: 100vh;
+  background-image: url("./assets/tetris_background.svg");
+  background-size: 200px;
 }
 
 .right-column {
@@ -16,6 +22,7 @@
 
 .game-board {
   border: solid 2px;
+  background-color: white;
 }
 
 .play-button {
@@ -23,4 +30,12 @@
   font-size: 16px;
   padding: 15px 30px;
   cursor: pointer;
+}
+
+.game-area {
+  width: 100%;
+  display: grid;
+  justify-content: center;
+  align-content: center;
+  grid-template-columns: 320px 200px;
 }

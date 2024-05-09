@@ -17,7 +17,6 @@ class Board {
         if (event.defaultPrevented) {
           return; // Do nothing if the event was already processed
         }
-
         switch (event.key) {
           case "ArrowDown":
             // Do something for "down arrow" key press.
@@ -43,7 +42,7 @@ class Board {
             this.lastChance = false;
             break;
           case "ArrowUp":
-            this.currentPiece.turn();
+            this.turn();
             break;
           case "ArrowLeft":
             if (!this.checkCollisionLeft()) {
@@ -208,6 +207,45 @@ class Board {
       }
     }
     return false;
+  }
+
+  checkCollision(pieceGrid, x, y) {
+    for (let row = 0; row < pieceGrid.length; row++) {
+      for (let col = 0; col < pieceGrid[0].length; col++) {
+        if (pieceGrid[row][col] === 2) {
+          if (this.grid[y + row]?.[x + col] !== 0) {
+            return true;
+          }
+        }
+      }
+    }
+  }
+
+  turn() {
+    const rows = this.currentPiece.pieceGrid.length;
+    const cols = this.currentPiece.pieceGrid[0].length;
+
+    // Create a new array with rotated dimensions
+    const rotatedMatrix = new Array(cols).fill().map(() => []);
+
+    // Iterate through the original matrix and fill the rotatedMatrix
+    for (let i = 0; i < rows; i++) {
+      for (let j = 0; j < cols; j++) {
+        rotatedMatrix[j].unshift(this.currentPiece.pieceGrid[i][j]);
+      }
+    }
+
+    if (
+      !this.checkCollision(
+        rotatedMatrix,
+        this.currentPiece.x,
+        this.currentPiece.y
+      )
+    ) {
+      this.currentPiece.draw(ctx, backgroundcolors[level]);
+      this.currentPiece.pieceGrid = rotatedMatrix;
+      this.currentPiece.draw(ctx);
+    }
   }
 
   getEmptyBoard() {

@@ -1,14 +1,18 @@
 // TODO:
-// - Fix collision bug when turning Piece
+// ✅ Fix collision bug when turning Piece
+// - Fix collision bug when creating new Piece
+// - Fix rotation algorithm
 // ✅ Add Levels
 // ✅ Add point system
 // ✅ Create next piece preview
 // ✅ Let rotate for one more cycle before fixing piece
-// - Add solved lines animation
 // ✅ Add colors to pieces
 // ✅ KeyDown Feature
 // ✅ Change background color depending on level
 // - Store the highscore
+// ✅ Reload on "Game Over"- and "Play"-Button
+// - Make levels difficulties "exponential"
+// - Add "Pause"-Button
 
 const canvas = document.getElementById("board");
 const ctx = canvas.getContext("2d");
@@ -42,11 +46,24 @@ const scoreSpan = document.getElementById("score");
 const linesSpan = document.getElementById("lines");
 const levelSpan = document.getElementById("level");
 
+// Refresh page when starting new game
+const urlParams = new URLSearchParams(window.location.search);
+const clickedPlay = urlParams.get("clickedPlay");
+if (clickedPlay === "yes") {
+  startGame();
+}
+
 function play() {
+  window.location.href =
+    window.location.href.split("?")[0] + "?clickedPlay=yes";
+}
+
+function startGame() {
   board = new Board(ctx, ctxNextPiece);
   board.newPiece();
   loop();
 }
+
 function loop() {
   // Beginning of loop
   if (time === 1) {
@@ -57,6 +74,7 @@ function loop() {
     board.movePiece();
     if (board.gameOver()) {
       window.alert("GAME OVER");
+      window.location.href = window.location.href.split("?")[0];
       return;
     }
 

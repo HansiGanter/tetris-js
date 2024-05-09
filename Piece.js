@@ -101,24 +101,4 @@ class Piece {
       });
     });
   }
-
-  turn() {
-    this.draw(ctx, backgroundcolors[level]);
-
-    const rows = this.pieceGrid.length;
-    const cols = this.pieceGrid[0].length;
-
-    // Create a new array with rotated dimensions
-    const rotatedMatrix = new Array(cols).fill().map(() => []);
-
-    // Iterate through the original matrix and fill the rotatedMatrix
-    for (let i = 0; i < rows; i++) {
-      for (let j = 0; j < cols; j++) {
-        rotatedMatrix[j].unshift(this.pieceGrid[i][j]);
-      }
-    }
-
-    this.pieceGrid = rotatedMatrix;
-    this.draw(ctx);
-  }
 }
