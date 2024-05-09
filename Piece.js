@@ -1,11 +1,11 @@
 // Pieces:
-// 0: L-Piece
-// 1: L-Reverse
-// 2: T-Piece
-// 3: S-Piece
-// 4: S-Reverse
-// 5: I-Piece
-// 6: Square-Piece
+// 1: L-Piece
+// 2: L-Reverse
+// 3: T-Piece
+// 4: S-Piece
+// 5: S-Reverse
+// 6: I-Piece
+// 7: Square-Piece
 
 function randomType() {
   return Math.floor(Math.random() * 7) + 1;
@@ -62,10 +62,10 @@ class Piece {
       case 6:
         this.x = 3;
         this.pieceGrid = [
-          [0, 2, 0, 0],
-          [0, 2, 0, 0],
-          [0, 2, 0, 0],
-          [0, 2, 0, 0],
+          [0, 0, 0, 0],
+          [2, 2, 2, 2],
+          [0, 0, 0, 0],
+          [0, 0, 0, 0],
         ];
         break;
       case 7:

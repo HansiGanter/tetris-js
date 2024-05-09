@@ -32,6 +32,13 @@
   cursor: pointer;
 }
 
+.pause-button {
+  background-color: lightgray;
+  font-size: 16px;
+  padding: 15px 30px;
+  cursor: pointer;
+}
+
 .game-area {
   width: 100%;
   display: grid;

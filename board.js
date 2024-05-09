@@ -70,6 +70,7 @@ class Board {
   newPiece() {
     // this.currentPiece = new Piece(sequence[pieceIndex]);
     // pieceIndex++;
+
     this.currentPiece = this.nextPiece;
     this.nextPiece = new Piece();
 
@@ -77,6 +78,18 @@ class Board {
     const { width, height } = ctxNextPiece.canvas;
     this.ctxNextPiece.clearRect(0, 0, width, height);
     this.nextPiece.drawNextPiece(this.ctxNextPiece);
+
+    this.drawBoard();
+    // ceck if Game Over
+    if (
+      this.checkCollision(
+        this.currentPiece.pieceGrid,
+        this.currentPiece.x,
+        this.currentPiece.y
+      )
+    ) {
+      gameOver();
+    }
   }
 
   drawBoard() {
@@ -92,6 +105,9 @@ class Board {
         }
       }
     }
+    this.drawCurrentPiece();
+  }
+  drawCurrentPiece() {
     this.currentPiece.draw(this.ctx);
   }
 

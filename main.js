@@ -12,7 +12,8 @@
 // - Store the highscore
 // ✅ Reload on "Game Over"- and "Play"-Button
 // - Make levels difficulties "exponential"
-// - Add "Pause"-Button
+// ✅ Add "Pause"-Button
+// - Fix double "game over" alert
 
 const canvas = document.getElementById("board");
 const ctx = canvas.getContext("2d");
@@ -58,6 +59,10 @@ function play() {
     window.location.href.split("?")[0] + "?clickedPlay=yes";
 }
 
+function pause() {
+  window.alert("PASUE");
+}
+
 function startGame() {
   board = new Board(ctx, ctxNextPiece);
   board.newPiece();
@@ -73,8 +78,7 @@ function loop() {
   if (time + level * 10 >= 100) {
     board.movePiece();
     if (board.gameOver()) {
-      window.alert("GAME OVER");
-      window.location.href = window.location.href.split("?")[0];
+      gameOver();
       return;
     }
 
@@ -84,4 +88,13 @@ function loop() {
   }
 
   requestAnimationFrame(loop);
+}
+
+function gameOver() {
+  board.drawCurrentPiece();
+  // 0.5 second delay to draw board
+  setTimeout(function () {
+    window.alert("GAME OVER");
+    window.location.href = window.location.href.split("?")[0];
+  }, 500);
 }
