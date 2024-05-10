@@ -14,16 +14,19 @@
             <div class="right-column">
                 <div>
                     <canvas id="nextPiece" class="game-board"></canvas>
-                </div>
-                <div>
                     <h1>TETRIS</h1>
                     <p>Score: <span id="score">0</span></p>
                     <p>Lines: <span id="lines">0</span></p>
                     <p>Level: <span id="level">0</span></p>
-                    <canvas id="next" class="next"></canvas>
                 </div>
-                <button onclick="pause()" class="pause-button">Pause</button>
-                <button onclick="play()" class="play-button">Play</button>
+                <div class="right-column-buttom">
+                    <div class="high-score">
+                        <p>High score: </p>
+                        <p id="high-score">0</p>
+                    </div>
+                    <button onclick="pause()" class="pause-button">Pause</button>
+                    <button onclick="play()" class="play-button">Play</button>
+                </div>
             </div>
         </div>
     </div>

@@ -1,7 +1,6 @@
 // TODO:
 // ✅ Fix collision bug when turning Piece
-// - Fix collision bug when creating new Piece
-// - Fix rotation algorithm
+// ✅ Fix collision bug when creating new Piece
 // ✅ Add Levels
 // ✅ Add point system
 // ✅ Create next piece preview
@@ -9,11 +8,11 @@
 // ✅ Add colors to pieces
 // ✅ KeyDown Feature
 // ✅ Change background color depending on level
-// - Store the highscore
+// ✅ Store the highscore
 // ✅ Reload on "Game Over"- and "Play"-Button
-// - Make levels difficulties "exponential"
 // ✅ Add "Pause"-Button
 // - Fix double "game over" alert
+// - Host application
 
 const canvas = document.getElementById("board");
 const ctx = canvas.getContext("2d");
@@ -32,20 +31,34 @@ ctxNextPiece.canvas.height = 5 * BLOCK_SIZE;
 ctx.scale(BLOCK_SIZE, BLOCK_SIZE);
 ctxNextPiece.scale(BLOCK_SIZE, BLOCK_SIZE);
 
+if (isNaN(localStorage.getItem("high-score"))) {
+  localStorage.setItem("high-score", 0);
+}
+
 // Set loop time depending on level
 let time = 1;
 let lines = 0;
 let level = 0;
 let score = 0;
+let highscore = localStorage.getItem("high-score");
+
 let scoreTable = [40, 100, 300, 1200];
 
 function updateScore(lineSequence) {
   score += scoreTable[lineSequence - 1] * (level + 1);
 }
 
+function updateHighScore(newhighscore) {
+  highscore = newhighscore;
+  localStorage.setItem("high-score", highscore);
+  highscoreSpan.textContent = highscore;
+}
+
 const scoreSpan = document.getElementById("score");
 const linesSpan = document.getElementById("lines");
 const levelSpan = document.getElementById("level");
+const highscoreSpan = document.getElementById("high-score");
+highscoreSpan.textContent = highscore;
 
 // Refresh page when starting new game
 const urlParams = new URLSearchParams(window.location.search);
@@ -92,6 +105,9 @@ function loop() {
 
 function gameOver() {
   board.drawCurrentPiece();
+  if (score > highscore) {
+    updateHighScore(score);
+  }
   // 0.5 second delay to draw board
   setTimeout(function () {
     window.alert("GAME OVER");

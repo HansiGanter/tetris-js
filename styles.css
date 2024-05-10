@@ -46,3 +46,26 @@
   align-content: center;
   grid-template-columns: 320px 200px;
 }
+
+.right-column-buttom {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+#high-score,
+.high-score,
+.high-score > p {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  margin: 0;
+}
+
+.high-score {
+  border: solid 2px;
+  padding: 10px 0 10px 0;
+}
