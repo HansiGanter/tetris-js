@@ -1,2 +1,4 @@
 [build]
-  functions = "netlify/functions"
+publish = "public"  # Ensure your build output directory is correct
+functions = "netlify/functions"
+include = ["tetris.db"]
