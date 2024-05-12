@@ -15,6 +15,11 @@
 // - Fix double "game over" alert
 // ✅ Host application
 
+const isDevelopment = window.location.hostname === "localhost";
+const apiBaseUrl = isDevelopment
+  ? "http://localhost:8888/.netlify/functions"
+  : "https://tetrishansi.netlify.app/.netlify/functions";
+
 const canvas = document.getElementById("board");
 const ctx = canvas.getContext("2d");
 
@@ -77,7 +82,7 @@ globalhighscoreSpan.textContent = globalhighscore;
 
 // Fetch the current high score from the backend server
 function getGlobalHighscore() {
-  fetch("http://127.0.0.1:3000/highscore")
+  fetch(`${apiBaseUrl}/getHighscore`)
     .then((response) => {
       if (!response.ok) {
         throw new Error("Network response was not ok");
@@ -96,7 +101,7 @@ function getGlobalHighscore() {
 
 // Try to update the current high score in the database
 function updateGlobalHighscore() {
-  fetch("http://127.0.0.1:3000/highscore", {
+  fetch(`${apiBaseUrl}/postHighscore`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
