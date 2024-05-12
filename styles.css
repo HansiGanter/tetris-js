@@ -14,10 +14,20 @@
   background-size: 200px;
 }
 
-.right-column {
+.right-column,
+.left-column {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  gap: 10px;
+}
+
+.right-column {
+  justify-content: space-between;
+}
+
+.left-column {
+  justify-content: start;
 }
 
 .game-board {
@@ -43,8 +53,10 @@
   width: 100%;
   display: grid;
   justify-content: center;
+  justify-items: center;
   align-content: center;
-  grid-template-columns: 320px 200px;
+  grid-template-columns: 200px 320px 200px;
+  gap: 10px;
 }
 
 .right-column-buttom {
@@ -55,7 +67,6 @@
   gap: 10px;
 }
 
-#high-score,
 .high-score,
 .high-score > p {
   display: flex;
@@ -63,6 +74,12 @@
   align-items: center;
   gap: 4px;
   margin: 0;
+  text-align: center;
+  background-color: #ffffff99;
+}
+
+h4 {
+  margin: 8px;
 }
 
 .high-score {

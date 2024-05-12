@@ -10,6 +10,16 @@
 <body>
     <div class="grid">
         <div class="game-area">
+            <div class="left-column">
+                <div class="high-score">
+                    <h4>Personal High Score: </h4>
+                    <p id="personal-high-score">0</p>
+                </div>
+                <div class="high-score">
+                    <h4>Global High Score: </h4>
+                    <p id="global-high-score">0</p>
+                </div>
+            </div>
             <canvas id="board" class="game-board"></canvas>
             <div class="right-column">
                 <div>
@@ -20,10 +30,7 @@
                     <p>Level: <span id="level">0</span></p>
                 </div>
                 <div class="right-column-buttom">
-                    <div class="high-score">
-                        <p>High score: </p>
-                        <p id="high-score">0</p>
-                    </div>
+
                     <button onclick="pause()" class="pause-button">Pause</button>
                     <button onclick="play()" class="play-button">Play</button>
                 </div>
