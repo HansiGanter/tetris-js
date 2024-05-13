@@ -64,7 +64,7 @@ function updateScore(lineSequence) {
   score += scoreTable[lineSequence - 1] * (level + 1);
 }
 
-function updateHighScore(newhighscore) {
+function updatePersonalHighScore(newhighscore) {
   personalhighscore = newhighscore;
   localStorage.setItem("high-score", personalhighscore);
   personalhighscoreSpan.textContent = personalhighscore;
@@ -90,7 +90,7 @@ function getGlobalHighscore() {
       return response.json();
     })
     .then((data) => {
-      globalhighscore = data.highScore;
+      globalhighscore = data.highscore;
       globalhighscoreSpan.textContent = globalhighscore;
       console.log(data);
     })
@@ -101,12 +101,12 @@ function getGlobalHighscore() {
 
 // Try to update the current high score in the database
 function updateGlobalHighscore() {
-  fetch(`${apiBaseUrl}/postHighscore`, {
+  fetch(`${apiBaseUrl}/updateHighscore`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ score: score }),
+    body: JSON.stringify({ highscore: score }),
   })
     .then((response) => {
       if (!response.ok) {
@@ -168,7 +168,7 @@ function loop() {
 function gameOver() {
   board.drawCurrentPiece();
   if (score > personalhighscore) {
-    updateHighScore(score);
+    updatePersonalHighScore(score);
   }
   updateGlobalHighscore();
   getGlobalHighscore();
