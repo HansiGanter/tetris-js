@@ -12,8 +12,9 @@
 // ✅ Store global highscore
 // ✅ Reload on "Game Over"- and "Play"-Button
 // ✅ Add "Pause"-Button
-// - Fix double "game over" alert
+// ✅ Fix double "game over" alert
 // ✅ Host application
+// - Add Ads on page
 
 const isDevelopment = window.location.hostname === "localhost";
 const apiBaseUrl = isDevelopment
@@ -152,10 +153,6 @@ function loop() {
   // End of loop
   if (time + level * 10 >= 100) {
     board.movePiece();
-    if (board.gameOver()) {
-      gameOver();
-      return;
-    }
 
     time = 1;
   } else {
