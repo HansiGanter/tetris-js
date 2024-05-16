@@ -14,6 +14,7 @@
 // ✅ Add "Pause"-Button
 // ✅ Fix double "game over" alert
 // ✅ Host application
+// ✅ Add favicon
 // - Add Ads on page
 
 const isDevelopment = window.location.hostname === "localhost";
