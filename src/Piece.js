@@ -22,17 +22,17 @@ class Piece {
       case 1:
         this.x = 3;
         this.pieceGrid = [
-          [0, 2, 0],
-          [0, 2, 0],
-          [0, 2, 2],
+          [0, 0, 2],
+          [2, 2, 2],
+          [0, 0, 0],
         ];
         break;
       case 2:
         this.x = 3;
         this.pieceGrid = [
-          [0, 2, 0],
-          [0, 2, 0],
-          [2, 2, 0],
+          [2, 0, 0],
+          [2, 2, 2],
+          [0, 0, 0],
         ];
         break;
       case 3:
